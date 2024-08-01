@@ -1,0 +1,9 @@
+# Node.js
+node_modules/
+
+.env
+
+
+images/edited
+
+package-lock.json

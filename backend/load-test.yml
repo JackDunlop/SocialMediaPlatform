@@ -1,0 +1,32 @@
+config:
+  target: "http://localhost:3000" # Replace with your server's address
+  phases:
+    - duration: 60
+      arrivalRate: 10 # Number of new virtual users to spawn per second
+  processor: "./helper.js" # Specify the helper file
+
+scenarios:
+  - flow:
+      - function: "generateUserData"
+      - post:
+          url: "/users/register"
+          json:
+            username: "{{ username }}"
+            password:  "{{ password }}" 
+            dob: "{{ DOB }}"
+            fullname: "{{ fullname }}"
+            email: "{{ email }}"
+      - post:
+          url: "/users/login"
+          json:
+            username: "{{ username }}"
+            password: "{{ password }}"
+      # - function: "generateResizeData"
+      # - get:
+      #     url: "/images/resize/{{ image }}/{{ height }}/{{ width }}"
+      # - function: "generateRotateData"
+      # - get:
+      #     url: "/images/rotate/{{ image }}/{{ degrees }}"
+  
+
+# artillery run load-test.yml
